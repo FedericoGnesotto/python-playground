@@ -1,0 +1,30 @@
+name: Lint python files
+
+on:
+  push:
+    paths:
+      - "python_playground/**"
+    branch:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  Lint python files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v2
+
+      - name: Python Linter
+        uses: sunnysid3up/python-linter@master
+        with:
+          source: "src"
+          mypy-options: "--ignore-missing-imports --show-error-codes"
+          pylint-options: "--rcfile=setup.cfg"
+          isort-options: "-w 100"
