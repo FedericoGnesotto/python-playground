@@ -2,8 +2,6 @@ name: Lint python files
 
 on:
   push:
-    paths:
-      - "python_playground/**"
     branches:
       - main
       - feature/test_workflow
@@ -17,13 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout this repository
-        uses: actions/checkout@v2
-
-      - name: Python Linter
-        uses: sunnysid3up/python-linter@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
-          source: "src"
-          mypy-options: "--ignore-missing-imports --show-error-codes"
-          pylint-options: "--rcfile=setup.cfg"
-          isort-options: "-w 100"
+          python-version: 3.x
+      - run: pip install --upgrade pip
+      - run: pip install black==21.6b0 pylint==v3.0.0a3
+      - run: black --diff --check $(git ls-files '*.py')
+      - run: pylint --disable=all --enable=unused-import $(git ls-files '*.py')
