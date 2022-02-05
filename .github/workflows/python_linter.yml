@@ -2,8 +2,6 @@ name: Lint python files
 
 on:
   push:
-    paths:
-      - "python_playground/**"
     branches:
       - main
       - feature/test_workflow
@@ -25,5 +23,3 @@ jobs:
         with:
           source: "src"
           mypy-options: "--ignore-missing-imports --show-error-codes"
-          pylint-options: "--rcfile=setup.cfg"
-          isort-options: "-w 100"
