@@ -6,11 +6,10 @@ on:
       - "python_playground/**"
     branch:
       - main
-      - dev
+      - feature/test_workflow
   pull_request:
     branches:
       - main
-      - dev
   workflow_dispatch:
 
 jobs:
